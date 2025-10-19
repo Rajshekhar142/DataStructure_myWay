@@ -1,0 +1,112 @@
+class Node{
+    constructor(data , next = null){
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class SinglyLinkedList{
+    // init a new empty singlyLinkedList
+    constructor(){
+        this.head = null;
+    }
+    insertInFront(data){
+        // create new Node using data and pointer.
+        const newNode = new Node(data, this.head);
+        // assign the head pointer that points to first element of ll
+        // to this newNode.
+        // this.head -> node1 -> node2 -> node3 -> null.....
+        this.head = newNode;
+    }
+    insertToBack(data){
+        // create a new node with the given data
+        const newNode = new Node(data);
+        // yeah from the constructor its head points to null..
+        if(this.isEmpty()){
+            // this is check on node since the object made 
+            // from class will be a ll node and if there exists nothing, if its empty..
+            this.head = newNode;
+            // make this new Node as the head..
+            return;
+        }
+        // Ie there exists a link and current store the address of 1st node.. 
+        let current = this.head;
+        // while node on which u stand has a hook to next block
+        // keep moving forward and when its not..
+        while(current.next !== null){
+            current = current.next;
+        }
+        // us simply assign the next pointer pointing to null to
+        // this newNode created and by def newNode already points to nul.
+        current.next = newNode;
+
+    }
+   // the task of this method is simple..
+   // its to give data if the index of the node was given..
+    get(index){
+        // handling the edge case if index passed is less than 0.
+        if(index < 0){
+            throw new Error("Index must be non-negative.");
+        }
+        // if a valid index , then assign the address to first node to
+        // current variable.
+        // create another variable name curIndex its just for keeping track for the
+        // index of node current is currently pointing to..
+        let current = this.head;
+        let currentIndex = 0;
+
+        while(currentIndex < index && current !== null){
+            current = current.next;
+            currentIndex++;
+            // keep moving forward and increment Index var
+            // along with it.
+        }
+        // After the loop, if `current` is null, it means we went past the
+        // end of the list. This happens if the index was greater than or
+        // equal to the list's length.
+        if(current == null){
+            throw new Error("Index out of bounds.");
+        }
+        return current.data;
+    }
+
+    // predicate is a function to test each node's data.
+
+    search(predicate){
+        let current = this.head;
+        while( current !== null){
+            // if not at the end of sll
+            if(predicate(current.data)) {
+                return current.data;
+            }
+            current = current.next;
+        }
+        return null
+    }
+
+    delete(target){
+        if (this.isEmpty()){
+            throw new Error(`Can't delete from an empty list`);
+        }
+
+        // Case 1: The head node is the target
+        if(this.head.data === target){
+            this.head = this.head.next;
+            return;
+        }
+        let current = this.head;
+        let previous = null;
+        
+        // traverse the list to find the target
+        while(current !== null && current.data !== target){
+            previous = current;
+            current = current.next;
+        }
+
+        // case 2 target not found
+        if(current == null){
+            throw new Error(`no element with value ${target} was found.`);
+        }
+        previous.next = current.next;
+    }
+}
