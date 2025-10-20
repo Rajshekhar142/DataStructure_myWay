@@ -109,4 +109,91 @@ class SinglyLinkedList{
         }
         previous.next = current.next;
     }
+    deleteFromFront(){
+        if (this.isEmpty()){
+            throw new Error("Cannot delete from an empty list.");
+        }
+        // get the first element
+        const data = this.head.data;
+        // so the reference to 1st node now refers to next of 1st node i.e node 2
+        this.head = this.head.next;
+        // right it returns the removed element
+        return data;
+    }
+
+    isEmpty(){
+        // straight enough .. if end points to null and 1st node is null 
+        // then ll is empty.
+        return this.head == null;
+    }
+    size(){
+        let count = 0;
+        let current = this.head;
+        while(current != null){
+            count++;
+            current = current.next;
+        }
+        return count;
+    }
+    traverse(callback){
+        let current = this.head;
+        const result = [];
+        while(current !== null){
+            result.push(callback(current.data));
+            current = current.next;
+        }
+        return result;
+    }
+    toString(){
+        if (this.isEmpty()){
+            return "empty";
+        }
+        // the callback converts each data item to its string representation
+        const stringify = (data) => JSON.stringify(data);
+        return this.traverse(stringify).join(" -> ");
+    }
 }
+
+const list = new SinglyLinkedList();
+console.log("Is list empty?", list.isEmpty());
+console.log("List:" , list.toString());
+
+// 2. Add items to the list
+list.insertInFront(10);
+list.insertToBack(20);
+list.insertInFront(5);
+list.insertToBack({id: 30 , name: "thirty"});
+
+// checking the state of list.
+console.log("List:" , list.toString());
+console.log("List size:" , list.size());
+console.log("Is list Empty" , list.isEmpty());
+
+// get and item by index
+try{
+    const item = list.get(2);
+    console.log("Item at index 2:" , item);
+} catch(e){
+    console.error(e.message);
+}
+
+// search for an item:
+const foundItem = list.search(data => typeof data == 'object' && data.id == 30);
+console.log("Found item:" , foundItem);
+
+const notFound = list.search(data => data === 99);
+console.log("Item 99 found:" , notFound);
+
+// Delete items
+try{
+    list.delete(10);
+    console.log("After deleting 10:" , list.toString());
+
+    const deletedFront = list.deleteFromFront();
+    console.log("Deleted from front:" , deletedFront);
+    console.log("After deleting front:" , list.toString());
+}
+catch(e){
+    console.error(e.message);
+}
+
