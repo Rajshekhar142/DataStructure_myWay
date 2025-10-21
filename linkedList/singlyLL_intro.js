@@ -197,3 +197,47 @@ catch(e){
     console.error(e.message);
 }
 
+class SortedSinglyLinkedList extends SinglyLinkedList{
+    // init a new empty sorted singly linked list . 
+    // call the parent constructor.
+    // extends create a child class that inherits from a parent class.
+    // super is keyword u use inside the child class to access the
+    // parent class.
+    constructor(){
+        super();
+    }
+    insertInFront(data){
+        throw new Error("This method is not available for sorted lists.")
+    }
+    insertInBack(data){
+        throw new Error("This method is not available for sorted lists.")
+    }
+
+    insert(newData){
+        const newNode = new Node(newData);
+
+        // -- Case 1: The list is empty OR new node is the smallest ---
+        // in both situations , the new node becomes the new head.
+
+        if(this.head === null || this.head.data >= newData){
+            newNode.next = this.head;
+            this.head = newNode;
+            return;
+        }
+
+        // --- Case 2: Insert in the middle or at the end ---
+        // We start at the end , looking for the node *before*
+        // our insertion point
+
+        let current = this.head;
+        // we will iterate till there is next node and its data is still smaller than our new node.
+        while(current.next !== null && current.next.data < newData){
+            current = current.next; // Move to the next node
+
+        }
+        // Link the new node to the rest of the list.
+        newNode.next = current.next;
+        // link the current node to the new node.
+        current.next = newNode;
+    }
+    }
