@@ -1,0 +1,40 @@
+# --- Dependencies ---
+# Ignore the folder containing all downloaded packages
+/node_modules
+
+# --- Environment Variables / Secrets ---
+# Ignore all .env files, which contain secret keys and database passwords
+# NEVER commit these to GitHub!
+*.env
+
+# But DO commit the example file (it has no secrets)
+!.env.example
+
+# --- Logs ---
+# Ignore log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Build / Distributable Output ---
+# Ignore compiled/transpiled code (e.g., from TypeScript or Babel)
+/dist
+/build
+
+# --- Test Output ---
+# Ignore test coverage reports
+/coverage
+
+# --- OS / IDE Junk ---
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# JetBrains / WebStorm
+.idea/

@@ -70,3 +70,5 @@ list.printList(); // Output: HEAD -> NULL
 
 deleted = list.deletefromfront(); // Output: List is empty. Nothing to delete.
 console.log(`Deleted ${deleted}.`); // Output: Deleted null.
+
+
